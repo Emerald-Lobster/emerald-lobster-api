@@ -1,0 +1,48 @@
+@baseUrl = https://localhost:7250
+
+### Get all items: 200, hard-coded Shirt and Shorts
+GET {{baseUrl}}/catalog
+Accept: application/json
+
+### Get item by ID: 200, hard-coded Shirt with ID 42
+GET {{baseUrl}}/catalog/42
+Accept: application/json
+
+### Post item: 201, Location: /catalog/42; echoes body without saving
+POST {{baseUrl}}/catalog
+Content-Type: application/json
+
+{
+  "name": "Shoes",
+  "description": "Ohio State shoes",
+  "brand": "Nike",
+  "price": 129.99
+}
+
+### Post rating: 200, Shirt with the submitted rating
+POST {{baseUrl}}/catalog/42/ratings
+Content-Type: application/json
+
+{
+  "stars": 5,
+  "userName": "Patrick",
+  "review": "Great shirt!"
+}
+
+### Put item: 204, no body (stub)
+PUT {{baseUrl}}/catalog/42
+Content-Type: application/json
+
+{
+  "id": 42,
+  "name": "Shirt",
+  "description": "Updated Ohio State shirt",
+  "brand": "Nike",
+  "price": 24.99
+}
+
+### Delete item: 204, no body (stub)
+DELETE {{baseUrl}}/catalog/42
+
+### Route constraint: 404
+GET {{baseUrl}}/catalog/not-an-integer
