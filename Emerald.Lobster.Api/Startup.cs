@@ -1,3 +1,5 @@
+﻿using Emerald.Lobster.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace Emerald.Lobster.Api;
@@ -14,6 +16,10 @@ public class Startup
                 Title = "Emerald Lobster Catalog API",
                 Version = "v1"
             }));
+
+        services.AddDbContext<StoreContext>(options =>
+            options.UseSqlite("Data Source=../Emerald.Lobster.sqlite",
+                b => b.MigrationsAssembly("Emerald.Lobster.Api")));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
