@@ -20,6 +20,16 @@ public class Startup
         services.AddDbContext<StoreContext>(options =>
             options.UseSqlite("Data Source=../Emerald.Lobster.sqlite",
                 b => b.MigrationsAssembly("Emerald.Lobster.Api")));
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+        
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
@@ -34,6 +44,8 @@ public class Startup
 
         app.UseHttpsRedirection();
         app.UseRouting();
+        app.UseCors();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
+
     }
 }
